@@ -1,0 +1,13 @@
+{
+  "name": "icon-generator-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "아이콘 프롬프트 빌더 + 후처리 도구. Gemini 텍스트 무료 티어로 주제 아이디어 생성/주제어 다듬기를 서버리스 프록시로 제공.",
+  "scripts": {
+    "dev": "node dev-server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

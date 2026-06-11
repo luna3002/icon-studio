@@ -210,7 +210,7 @@
                 <div class="pGrid">
                   <button data-p="softline">부드러운 라인</button>
                   <button data-p="linepop">라인+컬러</button>
-                  <button data-p="purpleline">그라데이션 라인</button>
+                  <button data-p="purpleline">투톤 라인</button>
                   <button data-p="geoline">기하라인</button>
                   <button data-p="ink">잉크수채</button>
                   <button data-p="doodle">캐릭터</button>
@@ -331,7 +331,7 @@ let toastT;function toast(m,e){const t=$("#toast");t.textContent=m;t.className="
 /* ============ STEP 1: PROMPT BUILDER ============ */
 let preset="clay", bgMode="white";
 let brand=["#FF5A5F","#FFB400","#2B2B2B","#FFF4E6"];
-const PAL_CFG={clay:{max:5,note:"메인 1~3색 권장"},ceramic:{max:5,note:"파스텔 2~4색"},puff:{max:5,note:"파스텔 1~3색"},glass:{max:4,note:"쿨톤 1~2색 + 화이트"},soft:{max:4,note:"블루·화이트 계열"},flatgen:{max:5,note:"3~5색"},flat:{max:6,note:"다색 가능"},multicolor:{max:8,note:"밝은 다색"},duotone:{max:2,note:"정확히 2색(+검정)"},duotonepurple:{max:2,note:"메인 2색(+검정)"},grain:{max:5,note:"뮤트 톤 3~5색"},softline:{max:1,note:"단색(블랙) 권장"},linepop:{max:1,note:"포인트 1색"},purpleline:{max:2,note:"그라데이션 2색"},geoline:{max:1,note:"포인트 1색"},ink:{max:1,note:"워시 1색"},doodle:{max:1,note:"포인트 1색"},editorial:{max:5,note:"포인트 2~4색"}};
+const PAL_CFG={clay:{max:5,note:"메인 1~3색 권장"},ceramic:{max:5,note:"파스텔 2~4색"},puff:{max:5,note:"파스텔 1~3색"},glass:{max:4,note:"쿨톤 1~2색 + 화이트"},soft:{max:4,note:"블루·화이트 계열"},flatgen:{max:5,note:"3~5색"},flat:{max:6,note:"다색 가능"},multicolor:{max:8,note:"밝은 다색"},duotone:{max:2,note:"정확히 2색(+검정)"},duotonepurple:{max:2,note:"메인 2색(+검정)"},grain:{max:5,note:"뮤트 톤 3~5색"},softline:{max:1,note:"단색(블랙) 권장"},linepop:{max:1,note:"포인트 1색"},purpleline:{max:2,note:"투톤 2색(메인+포인트)"},geoline:{max:1,note:"포인트 1색"},ink:{max:1,note:"워시 1색"},doodle:{max:1,note:"포인트 1색"},editorial:{max:5,note:"포인트 2~4색"}};
 function palMax(){return (PAL_CFG[preset]&&PAL_CFG[preset].max)||8;}
 
 function normHex(v){v=(v||'').trim().replace(/^#/,'');if(/^[0-9a-fA-F]{3}$/.test(v))v=v.split('').map(c=>c+c).join('');if(/^[0-9a-fA-F]{6}$/.test(v))return '#'+v.toUpperCase();return null;}
@@ -403,7 +403,7 @@ function buildPrompt(){
   else if(preset==="duotonepurple")
     t=`A single two-tone icon of ${subj}, medium-weight black outline filled with flat solid ${palMain} color blocks, clean rounded geometric shapes, two-tone scheme of ${palMain} plus black with small white negative-space highlights, no gradients, bold modern commercial icon-set style, centered and isolated, ${onbg}, no text, style strictly consistent with the reference images.`;
   else if(preset==="purpleline")
-    t=`A single line icon of ${subj}, smooth uniform-weight stroke with rounded caps colored in a soft gradient from ${palMain} to ${palB}, clean minimal construction, no fill, generous negative space, modern gradient-line style, centered and isolated, ${onbg}, no text, cohesive gradient line-icon set, style strictly consistent with the reference images.`;
+    t=`A single two-tone line icon of ${subj}, uniform-weight stroke with rounded caps drawn in two flat solid colors, ${palMain} for the main outline and ${palB} for the secondary accent strokes and small details, no gradient, no fill, clean minimal construction, generous negative space, modern two-tone line style, centered and isolated, ${onbg}, no text, cohesive two-tone line-icon set, style strictly consistent with the reference images.`;
   else
     t=`A single line icon of ${subj}, consistent uniform stroke weight, rounded line caps and joins, minimal geometric construction, single color ${palMain} on ${onbg}, centered and isolated, no fill, no text, clean and modern, style strictly consistent with the reference images.`;
   const fidelity=` Match the reference images as closely as possible: identical art style, identical stroke weight and detail level, identical perspective and proportions, identical color treatment. Render exactly one icon, perfectly centered with even consistent padding, crisp clean edges, professional cohesive icon-set quality, flat front view unless the style requires a 3D angle, no text, no watermark, no extra objects, no background clutter.`;

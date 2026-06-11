@@ -30,7 +30,6 @@
   .navItem.active{background:var(--accent);color:#fff;box-shadow:0 8px 20px rgba(59,91,253,.28)}
   .navItem .num{display:grid;place-items:center;width:22px;height:22px;border-radius:7px;background:var(--panel-2);color:var(--muted);font-family:var(--mono);font-size:13px;font-weight:700;flex-shrink:0}
   .navItem.active .num{background:rgba(255,255,255,.22);color:#fff}
-  .sideNote{margin-top:auto;font-size:12.5px;color:var(--muted);padding:12px;background:var(--panel-2);border-radius:10px;text-align:center;line-height:1.5}
   .main{flex:1;min-width:0;max-width:1280px;padding:30px 34px 70px}
   .panel{animation:fade .22s ease}
   @keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
@@ -39,10 +38,9 @@
     .sidebar{width:auto;height:auto;position:static;flex-direction:row;align-items:center;gap:8px;border-right:none;border-bottom:1px solid var(--line);padding:12px}
     .logo{padding:0 8px 0 4px}
     .nav{flex-direction:row;flex:1}
-    .sideNote{display:none}
     .main{padding:20px 16px 60px}
   }
-  header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:14px}
   .brand{display:flex;align-items:center;gap:14px}
   h1{font-size:25.2px;margin:0;letter-spacing:-.02em;font-weight:700}
   .sub{color:var(--muted);font-size:15px;margin-top:2px}
@@ -105,7 +103,10 @@
   .addbtn:hover{border-color:var(--accent);color:var(--accent);border-style:solid}
 
   .promptOut{position:relative}
-  .copyP{position:absolute;right:10px;top:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:none;border-radius:8px;padding:7px 13px;font-weight:700;font-size:14.4px;cursor:pointer}
+  .copyP{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:none;border-radius:8px;padding:8px 14px;font-weight:700;font-size:14.4px;cursor:pointer;white-space:nowrap}
+  .promptHead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px}
+  .howto{font-size:13.5px;color:var(--muted);line-height:1.7;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:0 0 22px;box-shadow:0 1px 3px rgba(25,35,75,.05)}
+  .howto b{color:var(--ink)}
   .copyP:hover{filter:brightness(1.06)}
 
   .note{font-size:13.8px;color:var(--muted);line-height:1.65;margin-top:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
@@ -164,7 +165,6 @@
       <button class="navItem active" id="nav1"><span class="num">1</span> 프롬프트 만들기</button>
       <button class="navItem" id="nav2"><span class="num">2</span> 후처리 · 정제</button>
     </nav>
-    <div class="sideNote">100% 로컬 처리<br>AI 호출 없음</div>
   </aside>
   <main class="main">
     <header>
@@ -175,6 +175,10 @@
         </div>
       </div>
     </header>
+    <div class="howto">
+      <b>💡 일관성 비결</b> — 프롬프트는 매번 새로 만들지 말고 <b>주제 단어만 바꿔 재사용</b>하세요.<br>
+      ① 기존 아이콘 2~3장을 레퍼런스로 업로드 → ② 이 프롬프트 붙여넣고 생성 → ③ 세트는 <b>직전 결과를 레퍼런스에 추가</b>(드리프트 방지) → ④ 받은 PNG는 <b>STEP 2</b>에서 정제
+    </div>
 
     <!-- ===== STEP 1 : PROMPT BUILDER ===== -->
     <section class="panel" id="panel1">
@@ -213,7 +217,6 @@
                 <div class="pGroupTitle">라인 · 일러스트</div>
                 <div class="pGrid">
                   <button data-p="softline">부드러운 라인</button>
-                  <button data-p="line">라인</button>
                   <button data-p="linepop">라인+컬러</button>
                   <button data-p="purpleline">퍼플 라인</button>
                   <button data-p="geoline">기하라인</button>
@@ -232,7 +235,7 @@
             <label class="fld">배경</label>
             <div class="seg" id="bg">
               <button data-bg="white" class="on">순백 #FFFFFF</button>
-              <button data-bg="transparent">투명</button>
+              <button data-bg="chroma">크로마키 그린</button>
             </div>
           </div>
           <div class="field">
@@ -241,18 +244,11 @@
           </div>
         </div>
         <div>
-          <label class="fld">완성된 프롬프트</label>
-          <div class="promptOut">
-            <button class="copyP" id="copyPrompt">프롬프트 복사</button>
-            <textarea id="promptText" readonly></textarea>
+          <div class="promptHead">
+            <label class="fld" style="margin:0">완성된 프롬프트</label>
+            <button class="copyP" id="copyPrompt">📋 프롬프트 복사</button>
           </div>
-          <div class="note">
-            <b>일관성 핵심</b> — 이 프롬프트는 <b>매번 새로 만들지 마세요.</b> 주제 단어만 바꿔 그대로 재사용하는 게 일관성의 비결이에요.<br><br>
-            ① AI Studio에 기존 아이콘 <b>2~3장을 레퍼런스로 업로드</b><br>
-            ② 위 프롬프트 붙여넣고 생성 → 다운로드<br>
-            ③ 세트로 뽑을 땐 <b>직전 결과물을 레퍼런스에 추가</b>해 다음 장 생성 (드리프트 방지)<br>
-            ④ 받은 PNG를 아래 STEP 2에 떨궈 정제
-          </div>
+          <textarea id="promptText" readonly></textarea>
         </div>
       </div>
     </div>
@@ -362,13 +358,13 @@ function afterPaletteChange(){buildPrompt();if(state.srcCanvas&&state.mode==="sv
 function buildPrompt(){
   const subj=$("#subject").value.trim()||"{SUBJECT}";
   const pal=brand.join(", ");
-  const bg=bgMode==="white"?"pure white background #FFFFFF, no cast shadow on the background":"transparent background, isolated object";
-  const palMain=brand[0];const onbg=bgMode==="white"?"pure white background #FFFFFF":"transparent background";
+  const bg=bgMode==="white"?"pure white background #FFFFFF, no cast shadow on the background":"solid chroma-key green screen background #00B140, flat even green color, no cast shadow, easy to key out later";
+  const palMain=brand[0];const onbg=bgMode==="white"?"pure white background #FFFFFF":"solid chroma-key green screen background #00B140";
   let t="";
   if(preset==="clay")
     t=`A single 3D icon of ${subj}, soft matte clay (claymorphism) material with subtle rounded bevelled edges, gentle soft studio lighting from top-left, slight 3/4 top-down angle, plump rounded friendly forms, color palette strictly limited to [${pal}], object centered and isolated, ${bg}, no text, no extra objects, high detail, style strictly consistent with the reference images.`;
   else if(preset==="puff")
-    t=`A single 3D icon of ${subj} in a soft inflated puffy style, smooth glossy balloon-like surface with plump rounded volumes, gentle pastel gradient shading, soft highlights and subtle reflections, light and airy feel, soft pastel color palette [${pal}], object centered and isolated, ${bg}, no text, no extra objects, high detail, style strictly consistent with the reference images.`;
+    t=`A single 3D icon of ${subj} in a soft inflated puffy style, one simple plump rounded form with a smooth clean matte surface, minimal uncluttered silhouette, gentle even shading with soft subtle highlights, no bumpy texture, no busy details, light and airy feel, soft pastel color palette [${pal}], object centered and isolated, ${bg}, no text, no extra objects, style strictly consistent with the reference images.`;
   else if(preset==="glass")
     t=`A single 3D icon of ${subj} in a frosted translucent glass style, semi-transparent glass material with soft internal blur and a small solid colored core, smooth glossy surface with gentle reflections and highlights, cool blue tint, slight 3/4 isometric angle, softly rounded edges, color palette of cool blues and white [${pal}], object centered and isolated, ${bg}, no text, no extra objects, premium glassmorphism look, high detail, style strictly consistent with the reference images.`;
   else if(preset==="soft")

@@ -77,6 +77,14 @@
   .seg button{flex:1;min-width:70px;border:none;background:transparent;color:var(--muted);font-family:var(--ui);font-size:15px;font-weight:600;padding:9px 6px;border-radius:7px;cursor:pointer;transition:.15s}
   .seg button.on{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff}
 
+  /* preset grid (styles) */
+  .presetWrap{display:flex;flex-direction:column;gap:15px}
+  .pGroupTitle{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .pGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:8px}
+  .pGrid button{border:1px solid var(--line);background:var(--panel-2);color:var(--ink);font-family:var(--ui);font-size:13.5px;font-weight:600;padding:11px 8px;border-radius:10px;cursor:pointer;transition:.15s;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pGrid button:hover{border-color:var(--accent);color:var(--accent)}
+  .pGrid button.on{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 6px 16px rgba(59,91,253,.25)}
+
   /* palette */
   .pal{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   .sw{display:flex;align-items:center;gap:6px;background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:5px 7px}
@@ -179,22 +187,41 @@
           </div>
           <div class="field">
             <label class="fld">스타일 프리셋</label>
-            <div class="seg" id="preset">
-              <button data-p="clay" class="on">3D 클레이</button>
-              <button data-p="ceramic">세라믹</button>
-              <button data-p="puff">퍼프3D</button>
-              <button data-p="glass">글래스</button>
-              <button data-p="soft">소프트3D</button>
-              <button data-p="flatgen">플랫(범용)</button>
-              <button data-p="flat">플랫(머터리얼)</button>
-              <button data-p="duotone">플랫듀오톤</button>
-              <button data-p="grain">그레인</button>
-              <button data-p="line">라인</button>
-              <button data-p="linepop">라인+컬러</button>
-              <button data-p="ink">잉크수채</button>
-              <button data-p="doodle">캐릭터</button>
-              <button data-p="editorial">에디토리얼</button>
-              <button data-p="geoline">기하라인</button>
+            <div id="preset" class="presetWrap">
+              <div class="pGroup">
+                <div class="pGroupTitle">3D · 입체</div>
+                <div class="pGrid">
+                  <button data-p="clay" class="on">3D 클레이</button>
+                  <button data-p="ceramic">세라믹</button>
+                  <button data-p="puff">퍼프3D</button>
+                  <button data-p="glass">글래스</button>
+                  <button data-p="soft">소프트3D</button>
+                </div>
+              </div>
+              <div class="pGroup">
+                <div class="pGroupTitle">플랫 · 컬러</div>
+                <div class="pGrid">
+                  <button data-p="flatgen">플랫(범용)</button>
+                  <button data-p="flat">플랫(머터리얼)</button>
+                  <button data-p="multicolor">멀티컬러</button>
+                  <button data-p="duotone">플랫듀오톤</button>
+                  <button data-p="duotonepurple">투톤(퍼플)</button>
+                  <button data-p="grain">그레인</button>
+                </div>
+              </div>
+              <div class="pGroup">
+                <div class="pGroupTitle">라인 · 일러스트</div>
+                <div class="pGrid">
+                  <button data-p="softline">부드러운 라인</button>
+                  <button data-p="line">라인</button>
+                  <button data-p="linepop">라인+컬러</button>
+                  <button data-p="purpleline">퍼플 라인</button>
+                  <button data-p="geoline">기하라인</button>
+                  <button data-p="ink">잉크수채</button>
+                  <button data-p="doodle">캐릭터</button>
+                  <button data-p="editorial">에디토리얼</button>
+                </div>
+              </div>
             </div>
           </div>
           <div class="field">
@@ -366,12 +393,20 @@ function buildPrompt(){
     t=`A single modern editorial illustration of ${subj}, thin clean black outline line-art combined with a few bold flat color blocks in primary colors and small hand-drawn scribble textures, playful loose accents such as dots and curved arrows, friendly stylized figures, generous negative space, color accents from [${pal}], centered and isolated, ${bg}, no text, contemporary corporate-editorial style strictly consistent with the reference images.`;
   else if(preset==="geoline")
     t=`A single minimal geometric line illustration of ${subj}, uniform thin black line with angular geometric construction, one warm accent color fill in ${palMain}, subtle halftone dot texture for shading, clean conceptual editorial style with lots of empty space, centered and isolated, ${onbg}, no text, Bauhaus-inspired minimal look, style strictly consistent with the reference images.`;
+  else if(preset==="softline")
+    t=`A single soft line icon of ${subj}, bold uniform-weight black outline with very rounded corners, rounded caps and joins, smooth plump friendly shapes, monoline construction, no fill, no color, generous negative space, centered and isolated, ${onbg}, no text, cohesive rounded line-icon set, soft and approachable, style strictly consistent with the reference images.`;
+  else if(preset==="multicolor")
+    t=`A single flat 2D icon of ${subj}, bold solid filled shapes in a vibrant playful multi-color palette (bright blue, fresh green, pink, yellow and orange), crisp clean edges, simple rounded geometric construction, no outline strokes, no gradients, cheerful modern flat icon-set look, additional color accents from [${pal}], centered and isolated, ${bg}, no text, style strictly consistent with the reference images.`;
+  else if(preset==="duotonepurple")
+    t=`A single two-tone icon of ${subj}, medium-weight black outline filled with flat solid purple (#7C3AED) color blocks, clean rounded geometric shapes, purple-and-black duotone scheme with small white negative-space highlights, no gradients, bold modern commercial icon-set style, centered and isolated, ${onbg}, no text, style strictly consistent with the reference images.`;
+  else if(preset==="purpleline")
+    t=`A single line icon of ${subj}, smooth uniform-weight stroke with rounded caps colored in a purple-to-pink gradient (violet #8B5CF6 fading to soft pink), light purple secondary accent strokes, clean minimal construction, no fill, generous negative space, modern gradient-line style, centered and isolated, ${onbg}, no text, cohesive gradient line-icon set, style strictly consistent with the reference images.`;
   else
     t=`A single line icon of ${subj}, consistent uniform stroke weight, rounded line caps and joins, minimal geometric construction, single color ${palMain} on ${onbg}, centered and isolated, no fill, no text, clean and modern, style strictly consistent with the reference images.`;
   $("#promptText").value=t;
 }
 $("#subject").addEventListener("input",buildPrompt);
-$("#preset").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;[...$("#preset").children].forEach(x=>x.classList.toggle("on",x===b));preset=b.dataset.p;buildPrompt();updatePreview();});
+$("#preset").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$("#preset").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));preset=b.dataset.p;buildPrompt();updatePreview();});
 $("#bg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;[...$("#bg").children].forEach(x=>x.classList.toggle("on",x===b));bgMode=b.dataset.bg;buildPrompt();});
 $("#copyPrompt").addEventListener("click",async()=>{await copyText($("#promptText").value);toast("프롬프트 복사됨 → AI Studio에 붙여넣기");});
 

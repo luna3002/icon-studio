@@ -175,20 +175,11 @@
         </div>
       </div>
     </header>
-    <div class="howto">
-      <b>💡 일관성 비결</b> — 프롬프트는 매번 새로 만들지 말고 <b>주제 단어만 바꿔 재사용</b>하세요.<br>
-      ① 기존 아이콘 2~3장을 레퍼런스로 업로드 → ② 이 프롬프트 붙여넣고 생성 → ③ 세트는 <b>직전 결과를 레퍼런스에 추가</b>(드리프트 방지) → ④ 받은 PNG는 <b>STEP 2</b>에서 정제
-    </div>
-
     <!-- ===== STEP 1 : PROMPT BUILDER ===== -->
     <section class="panel" id="panel1">
     <div class="card" id="body1">
       <div class="row">
         <div>
-          <div class="field">
-            <label class="fld">주제 (단어만 바꿔 쓰세요 · 영어 권장)</label>
-            <input class="input" id="subject" placeholder="travel suitcase / 여행용 캐리어">
-          </div>
           <div class="field">
             <label class="fld">스타일 프리셋</label>
             <div id="preset" class="presetWrap">
@@ -228,10 +219,6 @@
             </div>
           </div>
           <div class="field">
-            <label class="fld">스타일 참고 이미지</label>
-            <div class="preview" id="preview"></div>
-          </div>
-          <div class="field">
             <label class="fld">배경</label>
             <div class="seg" id="bg">
               <button data-bg="white" class="on">순백 #FFFFFF</button>
@@ -244,11 +231,21 @@
           </div>
         </div>
         <div>
-          <div class="promptHead">
-            <label class="fld" style="margin:0">완성된 프롬프트</label>
-            <button class="copyP" id="copyPrompt">📋 프롬프트 복사</button>
+          <div class="field">
+            <label class="fld">주제 (단어만 바꿔 쓰세요 · 영어 권장)</label>
+            <input class="input" id="subject" placeholder="travel suitcase / 여행용 캐리어">
           </div>
-          <textarea id="promptText" readonly></textarea>
+          <div class="field">
+            <label class="fld">스타일 참고 이미지</label>
+            <div class="preview" id="preview"></div>
+          </div>
+          <div class="field">
+            <div class="promptHead">
+              <label class="fld" style="margin:0">완성된 프롬프트</label>
+              <button class="copyP" id="copyPrompt">📋 프롬프트 복사</button>
+            </div>
+            <textarea id="promptText" readonly></textarea>
+          </div>
         </div>
       </div>
     </div>
@@ -310,6 +307,11 @@
     </div>
   </div>
     </section>
+
+    <div class="howto">
+      <b>💡 일관성 비결</b> — 프롬프트는 매번 새로 만들지 말고 <b>주제 단어만 바꿔 재사용</b>하세요.<br>
+      ① 기존 아이콘 2~3장을 레퍼런스로 업로드 → ② 이 프롬프트 붙여넣고 생성 → ③ 세트는 <b>직전 결과를 레퍼런스에 추가</b>(드리프트 방지) → ④ 받은 PNG는 <b>STEP 2</b>에서 정제
+    </div>
   </main>
 </div>
 <div class="toast" id="toast"></div>
@@ -399,7 +401,8 @@ function buildPrompt(){
     t=`A single line icon of ${subj}, smooth uniform-weight stroke with rounded caps colored in a purple-to-pink gradient (violet #8B5CF6 fading to soft pink), light purple secondary accent strokes, clean minimal construction, no fill, generous negative space, modern gradient-line style, centered and isolated, ${onbg}, no text, cohesive gradient line-icon set, style strictly consistent with the reference images.`;
   else
     t=`A single line icon of ${subj}, consistent uniform stroke weight, rounded line caps and joins, minimal geometric construction, single color ${palMain} on ${onbg}, centered and isolated, no fill, no text, clean and modern, style strictly consistent with the reference images.`;
-  $("#promptText").value=t;
+  const fidelity=` Match the reference images as closely as possible: identical art style, identical stroke weight and detail level, identical perspective and proportions, identical color treatment. Render exactly one icon, perfectly centered with even consistent padding, crisp clean edges, professional cohesive icon-set quality, flat front view unless the style requires a 3D angle, no text, no watermark, no extra objects, no background clutter.`;
+  $("#promptText").value=t+fidelity;
 }
 $("#subject").addEventListener("input",buildPrompt);
 $("#preset").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$("#preset").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));preset=b.dataset.p;buildPrompt();updatePreview();});
